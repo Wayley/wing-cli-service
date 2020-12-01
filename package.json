@@ -1,6 +1,6 @@
 {
   "name": "wing-cli-service",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "the cli service for wing-cli",
   "main": "index.js",
   "scripts": {
