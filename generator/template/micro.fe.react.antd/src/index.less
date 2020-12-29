@@ -1,0 +1,117 @@
+@import '~antd/dist/antd.css';
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+/* copyright-layout */
+.copyright-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.copyright-layout-wrapper {
+  flex: 1;
+}
+/* main-layout */
+.main-layout {
+  display: flex;
+}
+.main-layout-sider {
+  height: 100vh;
+}
+.sider-logo{
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+}
+.side-menus {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+}
+.side-collapsed-button{
+  text-align: right; 
+  cursor: pointer; 
+  padding: 10px 
+}
+.main-layout-wrapper {
+  flex: 1;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.main-layout-header {
+  background: #ccc;
+  height: 60px;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+}
+.demo{
+  flex: 1;
+  font-size: 16px;
+  color: #1890ff;
+}
+.main-layout-header-right{
+  display: flex;
+  align-items: center;
+  
+}
+.main-layout-header-right-item{
+  padding: 0 15px;
+  color: #1890ff;
+  font-size: 16px;
+}
+.main-layout-container {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  margin: 24px 16px 0;
+}
+*::-webkit-scrollbar {
+  width: 2px;
+  height: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 15px;
+  background: @theme-color;
+}
+
+*::-webkit-scrollbar-track {
+  border-radius: 15px;
+  background: #ededed;
+}
+
+/* ****************************** Global ****************************** */
+.global-footer{
+  text-align: center;
+  margin: 48px 0 24px;
+  padding: 0 16px;
+}
+/* ****************************** Antd Style Coverage ****************************** */
+.ant-layout-sider{
+  background: #fff;
+  .ant-layout-sider-children{
+    display: flex;
+    flex-direction: column;
+  }
+}
