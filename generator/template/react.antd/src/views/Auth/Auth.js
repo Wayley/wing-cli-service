@@ -1,4 +1,4 @@
-import './Auth.css';
+import './Auth.less';
 
 function Auth() {
   return <div className="auth-page">Auth Loading...</div>;

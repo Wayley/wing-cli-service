@@ -1,3 +1,4 @@
+@import '~antd/dist/antd.css';
 html,
 body,
 #root {
@@ -31,16 +32,23 @@ code {
   display: flex;
 }
 .main-layout-sider {
-  width: 300px;
-  background-color: #ccc;
   height: 100vh;
+}
+.sider-logo{
   display: flex;
-  flex-direction: column;
-  overflow: hidden;
+  justify-content: center;
+  padding: 10px 0;
 }
 .side-menus {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+}
+.side-collapsed-button{
+  text-align: right; 
+  cursor: pointer; 
+  padding: 10px 
 }
 .main-layout-wrapper {
   flex: 1;
@@ -50,29 +58,55 @@ code {
   overflow: hidden;
 }
 .main-layout-header {
-  display: flex;
+  background: #ccc;
   height: 60px;
-  background-color: #999;
-  // 添加Less变量
-  color: @theme-color;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+}
+.main-layout-header-right{
+  display: flex;
+  align-items: center;
+  
+}
+.main-layout-header-right-item{
+  padding: 0 15px;
+  color: #1890ff;
+  font-size: 16px;
 }
 .main-layout-container {
   flex: 1;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  margin: 24px 16px 0;
 }
 *::-webkit-scrollbar {
-  width: 1px;
+  width: 2px;
   height: 4px;
 }
 
 *::-webkit-scrollbar-thumb {
   border-radius: 15px;
-  background: red;
+  background: @theme-color;
 }
 
 *::-webkit-scrollbar-track {
   border-radius: 15px;
   background: #ededed;
+}
+
+/* ****************************** Global ****************************** */
+.global-footer{
+  text-align: center;
+  margin: 48px 0 24px;
+  padding: 0 16px;
+}
+/* ****************************** Antd Style Coverage ****************************** */
+.ant-layout-sider{
+  background: #fff;
+  .ant-layout-sider-children{
+    display: flex;
+    flex-direction: column;
+  }
 }

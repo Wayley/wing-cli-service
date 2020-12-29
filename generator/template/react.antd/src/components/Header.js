@@ -1,9 +1,10 @@
 import { useHistory, useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { Button } from 'antd';
 
 import { useAuth } from '@/hooks/useAuth';
 
-export default function Header() {
+export default function Header(props) {
   let history = useHistory();
   let auth = useAuth();
   let { state, setState } = auth;
@@ -26,9 +27,12 @@ export default function Header() {
     }, 500);
   };
   return token ? (
-    <div>
-      欢迎 <span style={{ color: '#1890ff' }}> {account} </span>
-      <button onClick={logout}>Sign out</button>
+    <div className="main-layout-header" {...props}>
+      <div style={{ flex: '1 1 0%' }}></div>
+      <div className="main-layout-header-right">
+        <div className="main-layout-header-right-item"> {account} </div>
+        <Button onClick={logout}>Sign out</Button>
+      </div>
     </div>
   ) : (
     <p>You are not logged in.</p>

@@ -1,22 +1,35 @@
 import { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { Form, Input, Button } from 'antd';
 import { useAuth } from '@/hooks/useAuth';
 import Cookies from 'js-cookie';
-import './Login.css';
-const idsProxy = '/ids';
+import './Login.less';
+const idsProxy = process.env.REACT_APP_PROXY_IN_DEV_IDS;
+const layout = {
+  labelCol: {
+    span: 7,
+  },
+  wrapperCol: {
+    span: 17,
+  },
+};
+function commonRule(label) {
+  return {
+    required: true,
+    message: `Please input your ${label}!`,
+  };
+}
 function LoginPage() {
   let history = useHistory();
   let location = useLocation();
   const [loading, setLoading] = useState(false);
   const [verification, setVerification] = useState(`${idsProxy}/verification`);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [verifyCode, setVerifyCode] = useState('');
 
   let auth = useAuth();
 
   let { from } = location.state || { from: { pathname: '/' } };
-  let login = () => {
+
+  const onFinish = ({ username, password, verifyCode }) => {
     setLoading(true);
     let form = new FormData();
     form.append('username', username);
@@ -42,49 +55,75 @@ function LoginPage() {
           setLoading(false);
           history.replace(from);
         } else {
+          setLoading(false);
           setVerification(`${idsProxy}/verification?t=${new Date().getTime()}`);
         }
       });
   };
 
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
   return (
     <div className="login-page">
-      <p>You must log in to view the page at: :{from.pathname}</p>
+      <div className="login-page-wrapper">
+        <p>You must log in to view the page at: :{from.pathname}</p>
+        <Form
+          {...layout}
+          name="basic"
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+        >
+          <Form.Item
+            label="Username"
+            name="username"
+            rules={[commonRule('username')]}
+          >
+            <Input />
+          </Form.Item>
 
-      <div>
-        用户名：
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
+          <Form.Item
+            label="Password"
+            name="password"
+            rules={[commonRule('password')]}
+          >
+            <Input.Password />
+          </Form.Item>
+
+          <Form.Item
+            label="VerifyCode"
+            name="verifyCode"
+            rules={[commonRule('verifyCode')]}
+          >
+            <div className="login-form-item-verify">
+              <Input />
+              <img
+                src={verification}
+                alt=""
+                onClick={() =>
+                  setVerification(
+                    `${idsProxy}/verification?t=${new Date().getTime()}`
+                  )
+                }
+              />
+            </div>
+          </Form.Item>
+
+          <Form.Item
+            wrapperCol={{
+              span: 24,
+            }}
+          >
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-submit"
+            >
+              {loading ? 'Logging in...' : 'Log in'}
+            </Button>
+          </Form.Item>
+        </Form>
       </div>
-      <div>
-        密码：
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <div>
-        验证码：
-        <input
-          type="text"
-          value={verifyCode}
-          onChange={(e) => setVerifyCode(e.target.value)}
-        />
-        <img
-          src={verification}
-          alt=""
-          onClick={() =>
-            setVerification(
-              `${idsProxy}/verification?t=${new Date().getTime()}`
-            )
-          }
-        />
-      </div>
-      <button onClick={login}>{loading ? 'Logging in...' : 'Log in'}</button>
     </div>
   );
 }

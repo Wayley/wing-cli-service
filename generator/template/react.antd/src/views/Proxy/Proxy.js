@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import './Proxy.less';
-const idsProxy = '/ids';
+const IDS_PROXY = process.env.REACT_APP_PROXY_IN_DEV_IDS || '';
+const FUS_PROXY = process.env.REACT_APP_PROXY_IN_DEV_FUS || '';
 
 function ProxyPage() {
-  const [verification, setVerification] = useState(`${idsProxy}/verification`);
+  const [verification, setVerification] = useState(`${IDS_PROXY}/verification`);
   const [verifyCode, setVerifyCode] = useState('');
 
   function testLogin() {
@@ -11,7 +12,7 @@ function ProxyPage() {
     form.append('username', 'U20200901');
     form.append('password', '');
     form.append('verifyCode', verifyCode);
-    fetch(`${idsProxy}/login`, {
+    fetch(`${IDS_PROXY}/login`, {
       method: 'POST',
       body: form,
       credentials: 'include',
@@ -24,7 +25,7 @@ function ProxyPage() {
       });
   }
   function testGetUrl() {
-    fetch('fus/ota/getOssUploadUrl?contentType=image')
+    fetch(`${FUS_PROXY}/fus/ota/getOssUploadUrl?contentType=image`)
       .then((response) => {
         return response.json();
       })
@@ -48,7 +49,7 @@ function ProxyPage() {
             alt=""
             onClick={() =>
               setVerification(
-                `${idsProxy}/verification?t=${new Date().getTime()}`
+                `${IDS_PROXY}/verification?t=${new Date().getTime()}`
               )
             }
           />

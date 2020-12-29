@@ -10,6 +10,7 @@ module.exports = {
   webpack: {
     alias: {
       '@': pathResolve('src'),
+      '@root': pathResolve(''),
     },
     plugins: [
       new CompressionPlugin({
@@ -29,7 +30,7 @@ module.exports = {
       options: {
         lessLoaderOptions: {
           lessOptions: {
-            modifyVars: { '@theme-color': 'pink' },
+            modifyVars: { '@theme-color': '#1890ff' },
             javascriptEnabled: true,
           },
         },

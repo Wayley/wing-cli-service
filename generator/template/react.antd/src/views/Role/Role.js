@@ -1,4 +1,4 @@
-import './Role.css';
+import './Role.less';
 
 function Role() {
   let arr = new Array(100).fill('Role');

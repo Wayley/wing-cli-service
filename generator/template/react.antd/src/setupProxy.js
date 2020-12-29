@@ -4,8 +4,9 @@ module.exports = function (app) {
   app.use(
     '/ids',
     createProxyMiddleware({
-      target: 'http://121.40.88.181:48279',
+      target: 'http://121.41.109.132:15088/admin',
       changeOrigin: true,
+      pathRewrite: { '^/ids': '' },
     })
   );
   app.use(
@@ -13,6 +14,15 @@ module.exports = function (app) {
     createProxyMiddleware({
       target: 'http://121.40.88.181:16088',
       changeOrigin: true,
+      pathRewrite: { '^/fus': '' },
+    })
+  );
+  app.use(
+    '/api',
+    createProxyMiddleware({
+      target: 'http://121.41.109.132:15088/admin',
+      changeOrigin: true,
+      pathRewrite: { '^/api': '' },
     })
   );
 };
