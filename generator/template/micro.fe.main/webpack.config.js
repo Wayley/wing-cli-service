@@ -10,6 +10,18 @@ module.exports = {
     clientLogLevel: 'warning',
     disableHostCheck: true,
     compress: true,
+    proxy: {
+      '/ids': {
+        target: 'http://121.41.109.132:15088/admin',
+        changeOrigin: true,
+        pathRewrite: { '^/ids': '' },
+      },
+      '/fus': {
+        target: 'http://121.40.88.181:16088',
+        changeOrigin: true,
+        pathRewrite: { '^/fus': '' },
+      },
+    },
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
