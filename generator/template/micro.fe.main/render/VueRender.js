@@ -5,7 +5,7 @@ function vueRender({ loading }) {
     template: `
       <div id="subapp-container">
         <h4 v-if="loading" class="subapp-loading">Loading...</h4>
-        <div id="subapp-viewport"></div>
+        <div id="subapp-viewport" :style="{ height: loading ? 'auto' : '100%' }"></div>
       </div>
     `,
     el: '#subapp-container',
