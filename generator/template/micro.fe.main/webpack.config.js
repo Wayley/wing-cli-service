@@ -1,8 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { name } = require('./package');
 
 module.exports = {
-  entry: process.env.MODE === 'multiple' ? './multiple.js' : './index.js',
+  entry: './index.js',
   devtool: 'source-map',
   devServer: {
     open: true,
@@ -57,8 +56,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template:
-        process.env.MODE === 'multiple' ? './multiple.html' : './index.html',
+      template: './index.html',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
