@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Micro-Frontend-App</title>
+</head>
+<style>
+  html,
+  body,
+  .mainapp {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+
+  }
+
+  *::-webkit-scrollbar {
+    width: 2px;
+    height: 4px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+    background: #2d8cf0;
+  }
+
+  *::-webkit-scrollbar-track {
+    border-radius: 15px;
+    background: #ededed;
+  }
+
+  .mainapp {
+    display: flex;
+    flex-direction: column;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+    line-height: 1;
+    color: #000;
+    font-size: 16px;
+  }
+
+  /* mainapp-header */
+  .mainapp-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    height: 64px;
+    white-space: nowrap;
+    background: #fff;
+    box-shadow: 0 8px 24px -2px rgba(0, 0, 0, .05);
+  }
+
+  .mainapp-header-logo {
+    font-weight: 600;
+  }
+
+  /* mainapp-main */
+  .mainapp-main {
+    height: calc(100vh - 64px);
+    display: flex;
+  }
+
+  .mainapp-sidemenu {
+    width: 225px;
+    background-color: #efefef;
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  .mainapp-sidemenu-item {
+    padding: 15px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+
+  .mainapp-sidemenu-item:hover {
+    color: #2d8cf0;
+    background-color: #f0faff;
+  }
+
+  .mainapp-sidemenu-item.active {
+    color: #2d8cf0;
+    background-color: #f0faff;
+    position: relative;
+  }
+
+  .mainapp-sidemenu-item.active::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 2px;
+    background-color: #2d8cf0;
+  }
+
+  .subapp-container {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .subapp-loading {
+    color: #2d8cf0;
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 130px;
+  }
+</style>
+
+<body>
+  <div class="mainapp">
+    <header class="mainapp-header">
+      <div class="mainapp-header-logo">Micro-Frontend-App</div>
+    </header>
+    <div class="mainapp-main">
+      <div class="mainapp-sidemenu"></div>
+      <main id="subapp-container" class="subapp-container"></main>
+    </div>
+  </div>
+
+  <script type="module">
+    import config from './config.js';
+    const { appName, apps } = config;
+    document.title = appName;
+    document.querySelector('.mainapp-header-logo').innerHTML = appName;
+
+    // 动态渲染出menu
+    function renderMenu() {
+      let str = '';
+      apps.forEach(({ path, label }) => {
+        str += `<div class="mainapp-sidemenu-item" data-path="` + path + `">` + label + `</div>`
+      })
+      document.querySelector('.mainapp-sidemenu').innerHTML = str;
+      return Promise.resolve();
+    }
+    // 添加事件绑定
+    function addEventHandle() {
+      let menus = document.querySelectorAll('.mainapp-sidemenu .mainapp-sidemenu-item');
+      menus[0].className = 'mainapp-sidemenu-item active';
+      menus.forEach(function (value, index) {
+        value.addEventListener('click', function (e) {
+          let target = e.target;
+          Array.prototype.forEach.call(menus, function removeActiveClass(node) {
+            node.className = 'mainapp-sidemenu-item'
+          });
+          target.className = 'mainapp-sidemenu-item active';
+          push(target.getAttribute('data-path'));
+        })
+      })
+    }
+
+    function push(subapp) {
+      history.pushState(null, subapp, subapp);
+    }
+
+    renderMenu().then(() => {
+      addEventHandle();
+    });
+
+  </script>
+</body>
+
+</html>
