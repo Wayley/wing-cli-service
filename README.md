@@ -1,1 +1,1 @@
-# wing-cli-service
+# wingjs-cli-service

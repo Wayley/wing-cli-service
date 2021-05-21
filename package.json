@@ -1,8 +1,8 @@
 {
-  "name": "wing-cli-service",
-  "version": "0.0.3",
-  "description": "the cli service for wing-cli",
-  "main": "index.js",
+  "name": "wingjs-cli-service",
+  "version": "0.0.4",
+  "description": "the cli service for wingjs-cli",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,11 +11,12 @@
     "url": "git+https://github.com/Wayley/wing-cli-service.git"
   },
   "keywords": [
-    "wing-cli",
+    "wing",
+    "wingjs-cli",
     "service"
   ],
   "author": {
-    "name": "Robben Wayley",
+    "name": "Robben Wadlay",
     "email": "hb_wangzheng@163.com"
   },
   "license": "MIT",
